@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for user in users %}
+    <article class="media content-section">
+      <div class="media-body">
+        <h2><a class="article-title" href="#">{{ user.username }}</a></h2>
+          <p class="article-content"><strong>ID: </strong>{{ user.id }}</p>
+          <p class="article-content"><strong>Email: </strong>{{ user.email }}</p>
+          <p class="article-content"><strong>Profile Picture: </strong>{{ user.image_file }}</p>
+          <p class="article-content"><strong>Posts: </strong>{{ user.posts }}</p>
+      </div>
+    </article>
+    {% endfor %}
+{% endblock content %}
