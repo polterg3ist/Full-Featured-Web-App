@@ -76,7 +76,8 @@ def account():
 
     if form.validate_on_submit():
         if form.picture.data:
-            delete_picture()    # delete user's previous profile picture
+            if not current_user.image_file.startswith('default'):   # if users avatar isn't the default image
+                delete_picture()    # delete user's previous profile picture
             picture_file = save_picture(form.picture.data)  # save new profile picture in storage
             current_user.image_file = picture_file          # save new profile picture in database
 
