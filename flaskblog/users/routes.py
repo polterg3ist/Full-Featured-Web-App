@@ -1,8 +1,8 @@
 from flaskblog.users.utils import save_picture, delete_picture, send_reset_email
 from flaskblog.users.forms import (
     RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm)
-from flask import Blueprint, render_template, url_for, flash, redirect, request
-from flaskblog import app, db, bcrypt
+from flask import Blueprint, render_template, url_for, flash, redirect, request, current_app
+from flaskblog import db, bcrypt
 from flaskblog.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -28,7 +28,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
 
         # add user to database and commit changes
-        with app.app_context():
+        with current_app.app_context():
             db.session.add(user)
             db.session.commit()
 
@@ -136,7 +136,7 @@ def reset_password(token):
         # hashing password to secure user's password
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 
-        with app.app_context():
+        with current_app.app_context():
             user.password = hashed_password
             db.session.commit()
 
